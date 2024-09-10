@@ -30,7 +30,7 @@ class DOMAIN(models.Model):
 
     description = models.CharField("description",max_length=255,default=None, blank=True, null=True)   
 
-    domain_id = models.CharField("domain_id",max_length=255,default=None, blank=True, null=True)   
+    domain_id = models.CharField("domain_id",max_length=255, primary_key=True)   
 
     facet_id = models.ForeignKey("FACET_COLLECTION", models.SET_NULL,blank=True,null=True,) 
 
@@ -40,9 +40,8 @@ class DOMAIN(models.Model):
 
     maintenance_agency_id = models.ForeignKey("MAINTENANCE_AGENCY", models.SET_NULL,blank=True,null=True,) 
 
-    name = models.CharField("name",max_length=255, primary_key=True)   
+    name = models.CharField("name",max_length=255,default=None, blank=True, null=True ) 
 
-    displayName = models.CharField("displayName",max_length=255,default=None, blank=True, null=True)   
     class Meta:
         verbose_name = 'DOMAIN'
         verbose_name_plural = 'DOMAINs'
@@ -81,58 +80,16 @@ class FACET_COLLECTION(models.Model):
         verbose_name = 'FACET_COLLECTION'
         verbose_name_plural = 'FACET_COLLECTIONs'
         
-class FACET_ENUMERATION(models.Model):
 
-
-    facet_id = models.ForeignKey("FACET_COLLECTION", models.SET_NULL,blank=True,null=True,) 
-
-    facet_type = models.ForeignKey("facet_type", models.SET_NULL,blank=True,null=True,) 
-
-    observation_value = models.CharField("observation_value",max_length=255,default=None, blank=True, null=True)   
-    class Meta:
-        verbose_name = 'FACET_ENUMERATION'
-        verbose_name_plural = 'FACET_ENUMERATIONs'
-        
-class facet_type(models.Model):
-
-
-    decimals = models.BigIntegerField("decimals",default=None, blank=True, null=True)   
-
-    endTime = models.CharField("endTime",max_length=255,default=None, blank=True, null=True)   
-
-    endValue = models.BigIntegerField("endValue",default=None, blank=True, null=True)   
-
-    interval = models.CharField("interval",max_length=255,default=None, blank=True, null=True)   
-
-    isSequence = models.CharField("isSequence",max_length=255,default=None, blank=True, null=True)   
-
-    maxLength = models.BigIntegerField("maxLength",default=None, blank=True, null=True)   
-
-    maxValue = models.BigIntegerField("maxValue",default=None, blank=True, null=True)   
-
-    minLength = models.BigIntegerField("minLength",default=None, blank=True, null=True)   
-
-    minValue = models.BigIntegerField("minValue",default=None, blank=True, null=True)   
-
-    pattern = models.CharField("pattern",max_length=255,default=None, blank=True, null=True)   
-
-    startTime = models.CharField("startTime",max_length=255,default=None, blank=True, null=True)   
-
-    startValue = models.BigIntegerField("startValue",default=None, blank=True, null=True)   
-
-    timeInterval = models.CharField("timeInterval",max_length=255,default=None, blank=True, null=True)   
-    class Meta:
-        verbose_name = 'facet_type'
-        verbose_name_plural = 'facet_types'
         
 class MAINTENANCE_AGENCY(models.Model):
 
 
     code = models.CharField("code",max_length=255,default=None, blank=True, null=True)   
 
-    maintenance_agency_id = models.CharField("maintenance_agency_id",max_length=255,default=None, blank=True, null=True)   
+    maintenance_agency_id = models.CharField("maintenance_agency_id", max_length=255, primary_key=True)   
 
-    name = models.CharField("name",max_length=255, primary_key=True)   
+    name = models.CharField("name",max_length=255,default=None, blank=True, null=True )   
     class Meta:
         verbose_name = 'MAINTENANCE_AGENCY'
         verbose_name_plural = 'MAINTENANCE_AGENCYs'
@@ -148,11 +105,10 @@ class MEMBER(models.Model):
 
     maintenance_agency_id = models.ForeignKey("MAINTENANCE_AGENCY", models.SET_NULL,blank=True,null=True,) 
 
-    member_id = models.CharField("member_id",max_length=255,default=None, blank=True, null=True)   
+    member_id = models.CharField("member_id",max_length=255, primary_key=True)   
 
-    name = models.CharField("name",max_length=255, primary_key=True)   
+    name = models.CharField("name",max_length=255,default=None, blank=True, null=True)   
 
-    displayName = models.CharField("displayName",max_length=255,default=None, blank=True, null=True)   
     class Meta:
         verbose_name = 'MEMBER'
         verbose_name_plural = 'MEMBERs'
@@ -168,9 +124,9 @@ class MEMBER_HIERARCHY(models.Model):
 
     maintenance_agency_id = models.ForeignKey("MAINTENANCE_AGENCY", models.SET_NULL,blank=True,null=True,) 
 
-    member_hierarchy_id = models.CharField("member_hierarchy_id",max_length=255,default=None, blank=True, null=True)   
+    member_hierarchy_id = models.CharField("member_hierarchy_id",max_length=255, primary_key=True)   
 
-    name = models.CharField("name",max_length=255, primary_key=True)   
+    name = models.CharField("name",max_length=255,default=None, blank=True, null=True)   
     class Meta:
         verbose_name = 'MEMBER_HIERARCHY'
         verbose_name_plural = 'MEMBER_HIERARCHYs'
@@ -197,45 +153,7 @@ class MEMBER_HIERARCHY_NODE(models.Model):
         verbose_name = 'MEMBER_HIERARCHY_NODE'
         verbose_name_plural = 'MEMBER_HIERARCHY_NODEs'
         
-class SUBDOMAIN(models.Model):
 
-
-    code = models.CharField("code",max_length=255,default=None, blank=True, null=True)   
-
-    description = models.CharField("description",max_length=255,default=None, blank=True, null=True)   
-
-    domain_id = models.ForeignKey("DOMAIN", models.SET_NULL,blank=True,null=True,) 
-
-    facet_id = models.ForeignKey("FACET_COLLECTION", models.SET_NULL,blank=True,null=True,) 
-
-    is_listed = models.BooleanField("is_listed",default=None, blank=True, null=True)   
-
-    is_natural = models.BooleanField("is_natural",default=None, blank=True, null=True)   
-
-    maintenance_agency_id = models.ForeignKey("MAINTENANCE_AGENCY", models.SET_NULL,blank=True,null=True,) 
-
-    subdomain_id = models.CharField("subdomain_id",max_length=255, primary_key=True)   
-
-    
-    class Meta:
-        verbose_name = 'SUBDOMAIN'
-        verbose_name_plural = 'SUBDOMAINs'
-        
-class SUBDOMAIN_ENUMERATION(models.Model):
-
-
-    member_id = models.ForeignKey("MEMBER", models.SET_NULL,blank=True,null=True,) 
-
-    order = models.BigIntegerField("order",default=None, blank=True, null=True)   
-
-    valid_from = models.DateTimeField("valid_from",default=None, blank=True, null=True)   
-
-    valid_to = models.DateTimeField("valid_to",default=None, blank=True, null=True)   
-
-    subdomain_id  = models.ForeignKey("SUBDOMAIN", models.SET_NULL,blank=True,null=True,) 
-    class Meta:
-        verbose_name = 'SUBDOMAIN_ENUMERATION'
-        verbose_name_plural = 'SUBDOMAIN_ENUMERATIONs'
         
 class VARIABLE(models.Model):
 
@@ -250,53 +168,15 @@ class VARIABLE(models.Model):
 
     primary_concept = models.CharField("primary_concept",max_length=255,default=None, blank=True, null=True)   
 
-    variable_id = models.CharField("variable_id",max_length=255,default=None, blank=True, null=True)   
+    variable_id = models.CharField("variable_id",max_length=255, primary_key=True)   
 
-    name = models.CharField("name",max_length=255, primary_key=True)   
+    name = models.CharField("name",max_length=255,default=None, blank=True, null=True)   
 
-    displayName = models.CharField("displayName",max_length=255,default=None, blank=True, null=True)   
     class Meta:
         verbose_name = 'VARIABLE'
         verbose_name_plural = 'VARIABLEs'
         
-class VARIABLE_SET(models.Model):
 
-
-    code = models.CharField("code",max_length=255,default=None, blank=True, null=True)   
-
-    description = models.CharField("description",max_length=255,default=None, blank=True, null=True)   
-
-    maintenance_agency_id = models.ForeignKey("MAINTENANCE_AGENCY", models.SET_NULL,blank=True,null=True,related_name='variable_set_maintenance_agency_id') 
-
-    name = models.CharField("name",max_length=255,default=None, blank=True, null=True)   
-
-    variable_set_id = models.CharField("variable_set_id",max_length=255, primary_key=True)   
-
-    
-    class Meta:
-        verbose_name = 'VARIABLE_SET'
-        verbose_name_plural = 'VARIABLE_SETs'
-        
-class VARIABLE_SET_ENUMERATION(models.Model):
-
-
-    is_flow = models.BooleanField("is_flow",default=None, blank=True, null=True)   
-
-    order = models.BigIntegerField("order",default=None, blank=True, null=True)   
-
-    subdomain_id = models.ForeignKey("SUBDOMAIN", models.SET_NULL,blank=True,null=True,) 
-
-    valid_from = models.DateTimeField("valid_from",default=None, blank=True, null=True)   
-
-    valid_to = models.DateTimeField("valid_to",default=None, blank=True, null=True)   
-
-    variable_id = models.ForeignKey("VARIABLE", models.SET_NULL,blank=True,null=True,) 
-
-    variable_set_id = models.ForeignKey("VARIABLE_SET", models.SET_NULL,blank=True,null=True,) 
-    class Meta:
-        verbose_name = 'VARIABLE_SET_ENUMERATION'
-        verbose_name_plural = 'VARIABLE_SET_ENUMERATIONs'
-        
 
         
 class FRAMEWORK(models.Model):
@@ -315,26 +195,9 @@ class FRAMEWORK(models.Model):
         verbose_name = 'FRAMEWORK'
         verbose_name_plural = 'FRAMEWORKs'
         
-class FRAMEWORK_SUBDOMAIN(models.Model):
 
-
-    framework_id = models.ForeignKey("FRAMEWORK", models.SET_NULL,blank=True,null=True,) 
-
-    subdomain_id = models.ForeignKey("SUBDOMAIN", models.SET_NULL,blank=True,null=True,) 
-    class Meta:
-        verbose_name = 'FRAMEWORK_SUBDOMAIN'
-        verbose_name_plural = 'FRAMEWORK_SUBDOMAINs'
         
-class FRAMEWORK_VARIABLE_SET(models.Model):
-
-
-    framework_id = models.ForeignKey("FRAMEWORK", models.SET_NULL,blank=True,null=True,) 
-
-    variable_set_id = models.ForeignKey("VARIABLE_SET", models.SET_NULL,blank=True,null=True,) 
-    class Meta:
-        verbose_name = 'FRAMEWORK_VARIABLE_SET'
-        verbose_name_plural = 'FRAMEWORK_VARIABLE_SETs'
-        
+      
 
         
 class MEMBER_MAPPING(models.Model):
@@ -355,7 +218,7 @@ class MEMBER_MAPPING(models.Model):
 class MEMBER_MAPPING_ITEM(models.Model):
 
 
-    isSource = models.CharField("isSource",max_length=255,default=None, blank=True, null=True)   
+    is_source = models.CharField("is_source",max_length=255,default=None, blank=True, null=True)   
 
     member = models.ForeignKey("MEMBER", models.SET_NULL,blank=True,null=True,) 
 
@@ -379,7 +242,7 @@ class VARIABLE_MAPPING_ITEM(models.Model):
 
     variable_mapping_id = models.ForeignKey("VARIABLE_MAPPING", models.SET_NULL,blank=True,null=True,)
     
-    isSource = models.CharField("isSource",max_length=255,default=None, blank=True, null=True)   
+    is_source = models.CharField("is_source",max_length=255,default=None, blank=True, null=True)   
 
     variable = models.ForeignKey("VARIABLE", models.SET_NULL,blank=True,null=True,) 
 
@@ -418,16 +281,6 @@ class MAPPING_TO_CUBE(models.Model):
         verbose_name = 'MAPPING_TO_CUBE'
         verbose_name_plural = 'MAPPING_TO_CUBEs'
         
-class VARIABLE_SET_MAPPING(models.Model):
-
-
-    sourceMapping = models.ForeignKey("MAPPING_DEFINITION", models.SET_NULL,blank=True,null=True,related_name='sourceMapping') 
-
-    targetMapping = models.ForeignKey("MAPPING_DEFINITION", models.SET_NULL,blank=True,null=True,related_name='targetMapping') 
-
-    class Meta:
-        verbose_name = 'VARIABLE_SET_MAPPING'
-        verbose_name_plural = 'VARIABLE_SET_MAPPINGs'
         
 class MAPPING_DEFINITION(models.Model):
 
@@ -442,9 +295,9 @@ class MAPPING_DEFINITION(models.Model):
 
     mapping_type = models.CharField("mapping_type",max_length=255,default=None, blank=True, null=True)   
 
-    memberMapping = models.ForeignKey("MEMBER_MAPPING", models.SET_NULL,blank=True,null=True,) 
+    member_mapping_id = models.ForeignKey("MEMBER_MAPPING", models.SET_NULL,blank=True,null=True,) 
 
-    variableMapping = models.ForeignKey("VARIABLE_MAPPING", models.SET_NULL,blank=True,null=True,) 
+    variable_mapping_id = models.ForeignKey("VARIABLE_MAPPING", models.SET_NULL,blank=True,null=True,) 
     class Meta:
         verbose_name = 'MAPPING_DEFINITION'
         verbose_name_plural = 'MAPPING_DEFINITIONs'
@@ -468,7 +321,6 @@ class AXIS(models.Model):
 
     table_id = models.ForeignKey("TABLE", models.SET_NULL,blank=True,null=True,) 
 
-    displayName = models.CharField("displayName",max_length=255,default=None, blank=True, null=True)   
     class Meta:
         verbose_name = 'AXIS'
         verbose_name_plural = 'AXISs'
@@ -478,7 +330,7 @@ class AXIS_ORDINATE(models.Model):
 
     axis_id = models.ForeignKey("AXIS", models.SET_NULL,blank=True,null=True,) 
 
-    axis_ordinate_id = models.CharField("axis_ordinate_id",max_length=255,default=None, blank=True, null=True)   
+    axis_ordinate_id = models.CharField("axis_ordinate_id",max_length=255, primary_key=True)   
 
     code = models.CharField("code",max_length=255,default=None, blank=True, null=True)   
 
@@ -488,7 +340,7 @@ class AXIS_ORDINATE(models.Model):
 
     level = models.BigIntegerField("level",default=None, blank=True, null=True)   
 
-    name = models.CharField("name",max_length=255, primary_key=True)   
+    name = models.CharField("name",max_length=255,default=None, blank=True, null=True)   
 
     order = models.BigIntegerField("order",default=None, blank=True, null=True)   
 
@@ -496,7 +348,7 @@ class AXIS_ORDINATE(models.Model):
 
     path = models.CharField("path",max_length=255,default=None, blank=True, null=True)   
 
-    displayName = models.CharField("displayName",max_length=255,default=None, blank=True, null=True)   
+       
     class Meta:
         verbose_name = 'AXIS_ORDINATE'
         verbose_name_plural = 'AXIS_ORDINATEs'
@@ -538,17 +390,16 @@ class TABLE(models.Model):
 
     maintenance_agency_id = models.ForeignKey("MAINTENANCE_AGENCY", models.SET_NULL,blank=True,null=True,) 
 
-    name = models.CharField("name",max_length=255, primary_key=True)   
+    name = models.CharField("name",max_length=255,default=None, blank=True, null=True)   
 
-    table_id = models.CharField("table_id",max_length=255,default=None, blank=True, null=True)   
+    table_id = models.CharField("table_id",max_length=255, primary_key=True)   
 
     valid_from = models.DateTimeField("valid_from",default=None, blank=True, null=True)   
 
     valid_to = models.DateTimeField("valid_to",default=None, blank=True, null=True)   
 
     version = models.CharField("version",max_length=255,default=None, blank=True, null=True)   
-
-    displayName = models.CharField("displayName",max_length=255,default=None, blank=True, null=True)   
+ 
     class Meta:
         verbose_name = 'TABLE'
         verbose_name_plural = 'TABLEs'
@@ -556,16 +407,207 @@ class TABLE(models.Model):
 class TABLE_CELL(models.Model):
 
 
-    cell_id = models.CharField("cell_id",max_length=255,default=None, blank=True, null=True)   
+    cell_id = models.CharField("cell_id",max_length=255, primary_key=True)   
 
     is_shaded =  models.BooleanField("is_open_axis",default=None, blank=True, null=True)  
 
     table_id = models.ForeignKey("TABLE", models.SET_NULL,blank=True,null=True,) 
 
-    name = models.CharField("name",max_length=255, primary_key=True)   
+    name = models.CharField("name",max_length=255,default=None, blank=True, null=True)   
     class Meta:
         verbose_name = 'TABLE_CELL'
         verbose_name_plural = 'TABLE_CELLs'
-        
 
+class CUBE_STRUCTURE(models.Model):
+
+
+    code = models.CharField("code",max_length=255,default=None, blank=True, null=True)   
+
+    cube_structure_id = models.CharField("cube_structure_id",max_length=255, primary_key=True)   
+
+    description = models.CharField("description",max_length=255,default=None, blank=True, null=True)   
+
+    maintenance_agency_id = models.ForeignKey("MAINTENANCE_AGENCY", models.SET_NULL,blank=True,null=True,) 
+
+    name = models.CharField("name",max_length=255,default=None, blank=True, null=True)   
+
+    valid_from = models.DateTimeField("valid_from",default=None, blank=True, null=True)   
+
+    valid_to = models.DateTimeField("valid_to",default=None, blank=True, null=True)   
+
+    version = models.CharField("version",max_length=255,default=None, blank=True, null=True)   
+ 
+    class Meta:
+        verbose_name = 'CUBE_STRUCTURE'
+        verbose_name_plural = 'CUBE_STRUCTUREs'
+		
+class CUBE_STRUCTURE_ITEM(models.Model):
+
+
+    attribute_associated_variable = models.ForeignKey("VARIABLE", models.SET_NULL,blank=True,null=True,related_name='attribute_associated_variable') 
+
+    cube_structure_id = models.ForeignKey("CUBE_STRUCTURE", models.SET_NULL,blank=True,null=True,) 
+
+    description = models.CharField("description",max_length=255,default=None, blank=True, null=True)   
+
+    TYP_DMNSN = {"B":"B",
+"M":"M",
+"T":"T",
+"U":"U",
+} 
+    dimension_type = models.CharField("dimension_type",max_length=255, choices=TYP_DMNSN,default=None, blank=True, null=True)   
+
+    is_flow = models.BooleanField("is_flow",default=None, blank=True, null=True)   
+
+    is_mandatory = models.BooleanField("is_mandatory",default=None, blank=True, null=True)   
+
+    member_id = models.ForeignKey("MEMBER", models.SET_NULL,blank=True,null=True,) 
+
+    order = models.BigIntegerField("order",default=None, blank=True, null=True)   
+
+    TYP_RL = {"O":"O",
+"A":"A",
+"D":"D",
+} 
+    role = models.CharField("role",max_length=255, choices=TYP_RL,default=None, blank=True, null=True)   
+
+    variable_id = models.ForeignKey("VARIABLE", models.SET_NULL,blank=True,null=True,) 
+
+    is_identifier = models.BooleanField("is_identifier",default=None, blank=True, null=True)   
+
+    cube_variable_code = models.CharField("cube_variable_code",max_length=255,default=None, blank=True, null=True) 
+    class Meta:
+        verbose_name = 'CUBE_STRUCTURE_ITEM'
+        verbose_name_plural = 'CUBE_STRUCTURE_ITEMs'
+    
+class CUBE(models.Model):
+
+
+    code = models.CharField("code",max_length=255,default=None, blank=True, null=True)   
+
+    cube_id = models.CharField("cube_id",max_length=255, primary_key=True)   
+
+    cube_structure_id = models.ForeignKey("CUBE_STRUCTURE", models.SET_NULL,blank=True,null=True,) 
+
+    cube_type = models.CharField("cube_type",max_length=255,default=None, blank=True, null=True)   
+
+    description = models.CharField("description",max_length=255,default=None, blank=True, null=True)   
+
+    framework_id = models.ForeignKey("FRAMEWORK", models.SET_NULL,blank=True,null=True,) 
+
+    is_allowed = models.BooleanField("is_allowed",default=None, blank=True, null=True)   
+
+    maintenance_agency_id = models.ForeignKey("MAINTENANCE_AGENCY", models.SET_NULL,blank=True,null=True,) 
+
+    name = models.CharField("name",max_length=255,default=None, blank=True, null=True)   
+
+    published = models.BooleanField("published",default=None, blank=True, null=True)   
+
+    valid_from = models.DateTimeField("valid_from",default=None, blank=True, null=True)   
+
+    valid_to = models.DateTimeField("valid_to",default=None, blank=True, null=True)   
+
+    version = models.CharField("version",max_length=255,default=None, blank=True, null=True)   
+
+    class Meta:
+        verbose_name = 'CUBE'
+        verbose_name_plural = 'CUBEs'   
+
+        
+class CUBE_LINK(models.Model):
+
+
+    maintenance_agency_id = models.ForeignKey("MAINTENANCE_AGENCY", models.SET_NULL,blank=True,null=True,) 
+
+    cube_link_id = models.CharField("cube_link_id",max_length=255, primary_key=True)   
+
+    code = models.CharField("code",max_length=255,default=None, blank=True, null=True)   
+
+    name = models.CharField("name",max_length=255,default=None, blank=True, null=True)   
+
+    description = models.CharField("description",max_length=255,default=None, blank=True, null=True)   
+
+    valid_from = models.DateTimeField("valid_from",default=None, blank=True, null=True)   
+
+    valid_to = models.DateTimeField("valid_to",default=None, blank=True, null=True)   
+
+    version = models.CharField("version",max_length=255,default=None, blank=True, null=True)   
+
+    order_relevance = models.BigIntegerField("order_relevance",default=None, blank=True, null=True)   
+
+    primary_cube_id = models.ForeignKey("CUBE", models.SET_NULL,blank=True,null=True,related_name='primary_cube_in_cube_link') 
+
+    foreign_cube_id = models.ForeignKey("CUBE", models.SET_NULL,blank=True,null=True,related_name='foreign_cube_in_cube_link') 
+
+    cube_link_type = models.CharField("cube_link_type",max_length=255,default=None, blank=True, null=True)
+
+    product_identifier = models.ForeignKey("CUBE", models.SET_NULL,blank=True,null=True,related_name='product_identifier')
+    class Meta:
+        verbose_name = 'CUBE_LINK'
+        verbose_name_plural = 'CUBE_LINKs'  
+
+
+class CUBE_STRUCTURE_ITEM_LINK(models.Model):
+
+
+    cube_structure_item_link_id = models.CharField("cube_structure_item_link_id",max_length=255, primary_key=True)   
+
+    cube_link_id = models.ForeignKey("CUBE_LINK", models.SET_NULL,blank=True,null=True,) 
+
+    foreign_cube_variable_code = models.ForeignKey("CUBE_STRUCTURE_ITEM", models.SET_NULL,blank=True,null=True,related_name='foreign_cube_variable_code') 
+
+    primary_cube_variable_code = models.ForeignKey("CUBE_STRUCTURE_ITEM", models.SET_NULL,blank=True,null=True,related_name='primary_cube_variable_code') 
+
+    
+    class Meta:
+        verbose_name = 'CUBE_STRUCTURE_ITEM_LINK'
+        verbose_name_plural = 'CUBE_STRUCTURE_ITEM_LINKs'  
+
+	
+class COMBINATION(models.Model):
+
+
+    code = models.CharField("code",max_length=255,default=None, blank=True, null=True)   
+
+    combination_id = models.CharField("combination_id",max_length=255, primary_key=True)   
+
+    maintenance_agency_id = models.ForeignKey("MAINTENANCE_AGENCY", models.SET_NULL,blank=True,null=True,) 
+
+    name = models.CharField("name",max_length=255,default=None, blank=True, null=True)   
+
+    valid_from = models.DateTimeField("valid_from",default=None, blank=True, null=True)   
+
+    valid_to = models.DateTimeField("valid_to",default=None, blank=True, null=True)   
+
+    version = models.CharField("version",max_length=255,default=None, blank=True, null=True) 
+
+    metric = models.ForeignKey("VARIABLE", models.SET_NULL,blank=True,null=True,) 
+    
+    class Meta:
+        verbose_name = 'COMBINATION'
+        verbose_name_plural = 'COMBINATIONs'  
+
+
+		
+class COMBINATION_ITEM(models.Model):
+
+    combination_id = models.ForeignKey("COMBINATION", models.SET_NULL,blank=True,null=True,)
+
+    member_id = models.ForeignKey("MEMBER", models.SET_NULL,blank=True,null=True,) 
+
+    variable_id = models.ForeignKey("VARIABLE", models.SET_NULL,blank=True,null=True,) 
+    class Meta:
+        verbose_name = 'COMBINATION_ITEM'
+        verbose_name_plural = 'COMBINATION_ITEMs'  
+
+
+class CUBE_TO_COMBINATION(models.Model):
+
+
+    combination_id = models.ForeignKey("COMBINATION", models.SET_NULL,blank=True,null=True,) 
+
+    cube_id = models.ForeignKey("CUBE", models.SET_NULL,blank=True,null=True,)
+    class Meta:
+        verbose_name = 'CUBE_TO_COMBINATION'
+        verbose_name_plural = 'CUBE_TO_COMBINATIONs'  
 
